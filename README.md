@@ -21,8 +21,9 @@ Leaderboard and paper: https://app.poindexterlabs.net/benches/distillgapbench. S
 | Run the GPU smoke test | One NVIDIA GPU and internet access for the student weights (about 4 GB). No API keys. |
 | Score a researcher | One GPU per student served at a time, and API keys for the researcher and the validators. |
 
-Built and checked on NVIDIA GH200 (linux/arm64) with Podman 4.9 and Apptainer 1.5 on Isambard-AI. The same Dockerfiles build
-for linux/amd64, but that image has not yet run on GPUs. Model weights, API keys and run outputs are not included.
+Tested on NVIDIA GH200 (linux/arm64) on Isambard-AI: the GPU smoke test and a short researcher run pass in the
+container under Apptainer. GitHub CI runs the CPU checks on linux/amd64. The amd64 GPU image uses the same recipe but
+has not yet run on GPUs. Model weights, API keys and run outputs are not included.
 
 ## Quick start
 

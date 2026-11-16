@@ -11,9 +11,14 @@ Both pin the versions used for v1: CPython 3.12.13 (python-build-standalone, ins
 torch 2.11.0, `anthropic` 0.75.0, `openai` 2.41.0. One difference: the official vLLM image ships the CUDA 13.0 build
 of torch; the study ran the CUDA 12.9 build. Both base images are published for linux/arm64 and linux/amd64.
 
-Tested on Isambard-AI (NVIDIA GH200, linux/arm64): both images built with Podman; the test suite and the sandbox
-check passed under Podman (with `--security-opt unmask=ALL`) and under Apptainer; the GPU is visible under Podman
-(CDI) and Apptainer (`--nv`). The amd64 images build from the same recipe but have not been run on GPUs.
+What has been tested:
+
+- **NVIDIA GH200 (linux/arm64), Isambard-AI.** Both images built with Podman 4.9. The test suite and the sandbox check
+  pass under Podman (with `--security-opt unmask=ALL`) and Apptainer 1.5 (`--cleanenv`). Under Apptainer on one GPU,
+  the smoke test (operator template, Qwen3-1.7B-Base, 4 pairs written and scored) and a 2-pair Claude Sonnet 5.5 run
+  through Bedrock completed. The GPU is also visible under Podman through CDI.
+- **linux/amd64.** GitHub CI builds the CPU image and runs the test suite and the sandbox check on every push. The GPU
+  image uses the same recipe and multi-architecture base images but has not yet been built or run on amd64 GPUs.
 
 ## Where things live inside the image
 
