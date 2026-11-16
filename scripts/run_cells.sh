@@ -18,27 +18,33 @@ if [ "$COUNT" -gt "${#GPU_LIST[@]}" ]; then
   echo "need $COUNT GPUs (one per student: $NEEDED), found ${#GPU_LIST[@]}; use a per-student cell file such as cells/v1_qwen4b.json" >&2
   exit 2
 fi
-PIDS=(); URLS=(); i=0
+PIDS=(); URLS=(); WATCH=(); i=0
 while read -r name repo rev; do
   port=$((8101 + i))
   CUDA_VISIBLE_DEVICES=${GPU_LIST[$i]} "$VP" -m vllm.entrypoints.openai.api_server --model "$repo" --revision "$rev" \
     --served-model-name "$name" --host 127.0.0.1 --port "$port" --dtype bfloat16 --gpu-memory-utilization 0.85 \
     --max-model-len 8192 --seed 0 --generation-config vllm > "$OUT/vllm-$name.log" 2>&1 &
-  PIDS+=($!); URLS+=("$name=http://127.0.0.1:$port"); i=$((i + 1))
+  PIDS+=($!); URLS+=("$name=http://127.0.0.1:$port"); WATCH+=("$name=$!"); i=$((i + 1))
 done < <("$CV" scripts/students.py $NEEDED)
 cleanup() { for p in "${PIDS[@]}"; do kill "$p" 2>/dev/null; done; }
 trap cleanup EXIT
-"$CV" - "${URLS[@]}" <<'PY'
-import sys, time, requests
-pending = dict(u.split("=", 1) for u in sys.argv[1:])
+"$CV" - "${URLS[@]}" -- "${WATCH[@]}" <<'PY'
+import os, sys, time, requests
+args = sys.argv[1:]
+cut = args.index("--")
+pending = dict(u.split("=", 1) for u in args[:cut])
+pids = {k: int(v) for k, v in (w.split("=", 1) for w in args[cut + 1:])}
 deadline = time.time() + 1800
 while pending and time.time() < deadline:
     for name, url in list(pending.items()):
         try:
             if requests.get(url + "/v1/models", timeout=5).ok:
                 print("student server ready:", name, flush=True); pending.pop(name)
+                continue
         except Exception:
             pass
+        if not os.path.exists(f"/proc/{pids[name]}"):
+            sys.exit(f"student server {name} exited before it was ready (see vllm-{name}.log)")
     time.sleep(10)
 if pending:
     sys.exit("student servers not ready: " + ", ".join(pending))

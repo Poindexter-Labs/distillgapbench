@@ -64,7 +64,8 @@ podman save --format docker-archive -o distillgapbench-gpu.tar localhost/distill
 apptainer build distillgapbench-gpu.sif docker-archive://distillgapbench-gpu.tar
 ```
 
-Apptainer runs as your own user and mounts your home directory. Point the caches and results at a scratch directory
+Apptainer runs as your own user and mounts your home directory. Use `--cleanenv` so settings from your shell
+(for example `HF_HUB_OFFLINE` or `PYTHONPATH`) do not leak into the container. Point the caches and results at a scratch directory
 the sandbox hides (anything under `/home`, `/scratch`, `/projects`, `/local`, `/tmp` or `/mnt`):
 
 ```sh
@@ -72,7 +73,7 @@ the sandbox hides (anything under `/home`, `/scratch`, `/projects`, `/local`, `/
 #SBATCH --gpus=1 --cpus-per-task=16 --mem=128G --time=02:00:00
 W=/scratch/$USER/distillgapbench
 mkdir -p "$W"/{hf,cache,runs}
-apptainer exec --nv --bind "$W" \
+apptainer exec --nv --cleanenv --bind "$W" \
   --env HF_HOME="$W/hf" --env XDG_CACHE_HOME="$W/cache" --env VLLM_CACHE_ROOT="$W/cache/vllm" \
   --pwd /opt/distillgapbench distillgapbench-gpu.sif \
   bash scripts/run_smoke.sh "$W/runs/smoke"
