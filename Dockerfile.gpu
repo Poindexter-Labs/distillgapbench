@@ -1,0 +1,36 @@
+# DistillGapBench GPU image: the students on vLLM 0.24.0 plus the controller, in one image.
+# Built and smoke-tested on NVIDIA GH200 (linux/arm64). The linux/amd64 build uses the same recipe but has not been
+# run on GPUs yet.
+#   docker build -f Dockerfile.gpu -t distillgapbench:gpu .
+#   docker run --rm --gpus all --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
+#     -v "$HOME/.cache/huggingface:/home/dg/.cache/huggingface" -v "$PWD/runs:/home/dg/runs" \
+#     distillgapbench:gpu bash scripts/run_smoke.sh
+FROM docker.io/vllm/vllm-openai:v0.24.0
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends util-linux procps ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY --from=docker.io/astral/uv:0.13.6 /uv /usr/local/bin/uv
+
+# Controller and sandbox interpreter: standalone CPython 3.12.13 in its own venv, separate from vLLM's Python.
+ENV UV_PYTHON_INSTALL_DIR=/opt/python UV_NO_CACHE=1 UV_PYTHON_PREFERENCE=only-managed
+RUN uv python install 3.12.13
+
+WORKDIR /opt/distillgapbench
+COPY requirements.txt .
+RUN uv venv --python 3.12.13 /opt/distillgapbench/.venv \
+ && uv pip install --python /opt/distillgapbench/.venv/bin/python -r requirements.txt
+COPY . .
+# readable by any user (Apptainer runs as the host user; a strict umask on the host must not leak into the image)
+RUN chmod -R a+rX /opt/distillgapbench /opt/python
+
+RUN useradd --create-home --uid 1000 dg 2>/dev/null || useradd --create-home dg; \
+    mkdir -p /home/dg/runs /home/dg/.cache/huggingface && chown -R dg:dg /home/dg
+USER dg
+# vLLM keeps using the image's own python3 (VLLM_PYTHON); the controller uses CONTROLLER_PYTHON.
+ENV HOME=/home/dg HF_HOME=/home/dg/.cache/huggingface \
+    VLLM_PYTHON=python3 CONTROLLER_PYTHON=/opt/distillgapbench/.venv/bin/python \
+    VLLM_USE_FLASHINFER_SAMPLER=0 PYTHONDONTWRITEBYTECODE=1
+ENTRYPOINT []
+CMD ["bash", "scripts/selfcheck.sh"]

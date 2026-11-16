@@ -1,0 +1,584 @@
+[
+ {
+  "cell_id": "astra__smol3b__coding",
+  "researcher": "astra",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "astra__smol3b__math",
+  "researcher": "astra",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "astra__smol3b__output",
+  "researcher": "astra",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "opus55__smol3b__coding",
+  "researcher": "opus55",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "opus55__smol3b__math",
+  "researcher": "opus55",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "opus55__smol3b__output",
+  "researcher": "opus55",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "argon__smol3b__coding",
+  "researcher": "argon",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "argon__smol3b__math",
+  "researcher": "argon",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "argon__smol3b__output",
+  "researcher": "argon",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "template__smol3b__coding",
+  "researcher": null,
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "template"
+  ]
+ },
+ {
+  "cell_id": "template__smol3b__math",
+  "researcher": null,
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "template"
+  ]
+ },
+ {
+  "cell_id": "template__smol3b__output",
+  "researcher": null,
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "template"
+  ]
+ },
+ {
+  "cell_id": "sol__smol3b__coding",
+  "researcher": "sol",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "sol__smol3b__math",
+  "researcher": "sol",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "sol__smol3b__output",
+  "researcher": "sol",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "gpt56__smol3b__coding",
+  "researcher": "gpt56",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "gpt56__smol3b__math",
+  "researcher": "gpt56",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "gpt56__smol3b__output",
+  "researcher": "gpt56",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "hydrogen__smol3b__coding",
+  "researcher": "hydrogen",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "hydrogen__smol3b__math",
+  "researcher": "hydrogen",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "hydrogen__smol3b__output",
+  "researcher": "hydrogen",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "muse__smol3b__coding",
+  "researcher": "muse",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "muse__smol3b__math",
+  "researcher": "muse",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "muse__smol3b__output",
+  "researcher": "muse",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "opus48__smol3b__coding",
+  "researcher": "opus48",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "opus48__smol3b__math",
+  "researcher": "opus48",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "opus48__smol3b__output",
+  "researcher": "opus48",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "sonnet55__smol3b__coding",
+  "researcher": "sonnet55",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "sonnet55__smol3b__math",
+  "researcher": "sonnet55",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "sonnet55__smol3b__output",
+  "researcher": "sonnet55",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "fable52__smol3b__coding",
+  "researcher": "fable52",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "fable52__smol3b__math",
+  "researcher": "fable52",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "fable52__smol3b__output",
+  "researcher": "fable52",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "carbon__smol3b__coding",
+  "researcher": "carbon",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "carbon__smol3b__math",
+  "researcher": "carbon",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "carbon__smol3b__output",
+  "researcher": "carbon",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "kimi31__smol3b__coding",
+  "researcher": "kimi31",
+  "student": "smol3b",
+  "env": "coding",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "kimi31__smol3b__math",
+  "researcher": "kimi31",
+  "student": "smol3b",
+  "env": "math",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ },
+ {
+  "cell_id": "kimi31__smol3b__output",
+  "researcher": "kimi31",
+  "student": "smol3b",
+  "env": "output",
+  "reps": [
+   1,
+   2,
+   3
+  ],
+  "arms": [
+   "adaptive",
+   "batch"
+  ]
+ }
+]

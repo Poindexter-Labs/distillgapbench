@@ -1,0 +1,220 @@
+{
+ "schema": "distillgap_researchers_v6_draft",
+ "status": "v1 leaderboard configuration, frozen 2026-11-14. Every route was verified with a live call before the study; efforts are those used for v1 (Anthropic family xhigh, Gemini 4 Carbon medium). Prices are USD per 1M tokens at list price; some are placeholders (see the paper's appendix).",
+ "pricing_rules": [
+  "Bedrock 'us.' cross-region inference profile: +10% on list price (same basis as v5).",
+  "Where a list price changes during the study window (Gemini Argon/Carbon double on 2026-12-01; GPT-5.6 Sol promo), the higher rate is used for caps and cost reporting.",
+  "Thinking/reasoning tokens are billed as output on every route."
+ ],
+ "researchers": [
+  {
+   "id": "astra",
+   "name": "GPT-6 Astra",
+   "provider": "azure",
+   "wire_model": "gpt-6-astra",
+   "effort": "max",
+   "prices": {
+    "input": 10.0,
+    "cached": 1.0,
+    "output": 50.0
+   },
+   "price_source": "v5 vendored table (Azure Global Standard)"
+  },
+  {
+   "id": "sol",
+   "name": "GPT-6.1 Sol",
+   "provider": "azure",
+   "wire_model": "gpt-6.1-sol",
+   "effort": "max",
+   "prices": {
+    "input": 2.0,
+    "cached": 0.1,
+    "output": 10.0
+   },
+   "price_source": "third-party aggregators (OpenAI page not reached); verify"
+  },
+  {
+   "id": "gpt56",
+   "name": "GPT-5.6 (Sol)",
+   "provider": "azure",
+   "wire_model": "gpt-5.6-sol",
+   "effort": "max",
+   "prices": {
+    "input": 5.0,
+    "cached": 0.5,
+    "output": 30.0
+   },
+   "price_source": "aggregators: $4/$20 promo vs $5/$30 standard; higher used; verify"
+  },
+  {
+   "id": "opus55",
+   "name": "Claude Opus 5.5",
+   "provider": "aws_bedrock",
+   "wire_model": "us.anthropic.claude-opus-5-5",
+   "effort": "xhigh",
+   "prices": {
+    "input": 4.4,
+    "cached": 0.22,
+    "output": 22.0
+   },
+   "price_source": "v5 vendored table (Bedrock US profile incl. 10%)",
+   "note": "max effort unusable for long generation (1/10 usable, 2026-11-13); xhigh 3/4"
+  },
+  {
+   "id": "opus48",
+   "name": "Claude Opus 4.8",
+   "provider": "aws_bedrock",
+   "wire_model": "us.anthropic.claude-opus-4-8",
+   "effort": "xhigh",
+   "prices": {
+    "input": 5.5,
+    "cached": 0.55,
+    "output": 27.5
+   },
+   "price_source": "aggregators $5/$25 list, +10% Bedrock US profile; verify",
+   "effort_qualification_v1": "max",
+   "effort_note": "Qualification 2026-11-14 at max: 1/12 calls truncated at 64k. Anthropic family runs at xhigh, as Opus 5.5 does."
+  },
+  {
+   "id": "sonnet55",
+   "name": "Claude Sonnet 5.5",
+   "provider": "aws_bedrock",
+   "wire_model": "us.anthropic.claude-sonnet-5-5",
+   "effort": "xhigh",
+   "prices": {
+    "input": 2.2,
+    "cached": 0.22,
+    "output": 11.0
+   },
+   "price_source": "aggregators $2/$10 list, +10% Bedrock US profile; verify",
+   "effort_qualification_v1": "max",
+   "effort_note": "Qualification 2026-11-14 at max: 10/12 calls truncated at 64k output (runaway reasoning); xhigh."
+  },
+  {
+   "id": "fable52",
+   "name": "Claude Fable 5.2",
+   "provider": "aws_bedrock",
+   "wire_model": "us.anthropic.claude-fable-5-2",
+   "effort": "xhigh",
+   "prices": {
+    "input": 11.0,
+    "cached": 1.1,
+    "output": 55.0
+   },
+   "price_source": "PLACEHOLDER: Fable 5.1 list $10/$50 (+10%); Fable 5.2 price not found; verify",
+   "note": "not in server/claude_aws.py allowlist; DistillGap route uses the full wire id. Never Fable 5.1.",
+   "effort_qualification_v1": "max",
+   "effort_note": "Qualification 2026-11-14 at max: 6/11 calls truncated at 64k output; xhigh."
+  },
+  {
+   "id": "argon",
+   "name": "Gemini 4 Argon",
+   "provider": "google_native",
+   "wire_model": "gemini-4-argon",
+   "effort": "high",
+   "prices": {
+    "input": 4.0,
+    "cached": 0.2,
+    "output": 20.0
+   },
+   "price_source": "aistudio.google.com/docs/pricing (2026-11-13): $2/$10 to 2026-11-30, $4/$20 from 2026-12-01",
+   "note": "Poindexter caps Argon thinking at 'high'"
+  },
+  {
+   "id": "carbon",
+   "name": "Gemini 4 Carbon",
+   "provider": "google_native",
+   "wire_model": "gemini-4-carbon",
+   "effort": "medium",
+   "prices": {
+    "input": 4.0,
+    "cached": 0.2,
+    "output": 20.0
+   },
+   "price_source": "aistudio.google.com/docs/pricing (2026-11-13): $2/$10 to 2026-11-30, $4/$20 from 2026-12-01",
+   "effort_qualification_v1": "high",
+   "effort_note": "Qualification 2026-11-14 at thinking high: 3/9 calls truncated at 64k (both coding calls), about 80 output tokens/s; medium. Re-qualification at medium: coding 2/4 and math 1/5 calls still truncated at 64k (complete answers 47-59k tokens). Main run: medium with max_output_per_call 131072 (API maximum accepted), the only route-specific output cap.",
+   "max_output_per_call": 131072
+  },
+  {
+   "id": "hydrogen",
+   "name": "Gemini 4 Hydrogen",
+   "provider": "google_native",
+   "wire_model": "gemini-4-hydrogen",
+   "effort": "high",
+   "prices": {
+    "input": 1.5,
+    "cached": 0.075,
+    "output": 7.5
+   },
+   "price_source": "aistudio.google.com/docs/pricing (2026-11-13), Standard tier",
+   "note": "user approved publishing Hydrogen results; '-eap' variant also listed, GA id used"
+  },
+  {
+   "id": "kimi",
+   "name": "Kimi K3.1 Pro",
+   "provider": "openrouter",
+   "wire_model": "moonshotai/kimi-k3.1-pro",
+   "effort": "max",
+   "provider_pin": {
+    "only": [
+     "moonshotai/mxfp4"
+    ],
+    "allow_fallbacks": false
+   },
+   "prices": {
+    "input": 2.0,
+    "cached": 2.0,
+    "output": 10.0
+   },
+   "price_source": "openrouter.ai/api/v1/models (2026-11-13)",
+   "note": "OpenRouter key credit limit $200 (about $186 left): raise before the Kimi row",
+   "status": "Route diagnostic only (OpenRouter). The v1 leaderboard uses kimi31, Kimi K3.1 on Amazon Bedrock."
+  },
+  {
+   "id": "muse",
+   "name": "Muse Wonder 1.0",
+   "provider": "meta_native",
+   "wire_model": "muse-wonder-1.0",
+   "effort": "max",
+   "prices": {
+    "input": 4.0,
+    "cached": 0.2,
+    "output": 20.0
+   },
+   "price_source": "aggregators (Meta page not quoted directly); verify"
+  },
+  {
+   "id": "kimi31",
+   "name": "Kimi K3.1",
+   "provider": "aws_bedrock_openai",
+   "wire_model": "us.moonshotai.kimi-k3.1",
+   "effort": "max",
+   "prices": {
+    "input": 2.2,
+    "cached": 2.2,
+    "output": 11.0
+   },
+   "price_source": "PLACEHOLDER: OpenRouter Kimi K3.1 Pro list ($2/$10) + 10% Bedrock US-profile premium; verify against the Bedrock price page before freezing",
+   "notes": "AWS Bedrock us-east-2, US inference profile, OpenAI-compatible Chat Completions (streamed), same Bedrock API key as the Anthropic routes. Bedrock lists Kimi K3 and K3.1 (no Pro id). reasoning_effort validated by Bedrock (max accepted; 'none' gives 0 reasoning tokens). Bedrock tokens-per-minute quota: 72 concurrent arms drew HTTP 429 'Too many tokens' (void run, job 8414622); max_concurrent_arms 8 with broker backoff retries on 429.",
+   "max_concurrent_arms": 8
+  }
+ ],
+ "validators": {
+  "rule": "cross-family: Opus 5.5 validates non-Anthropic researchers; Astra validates Anthropic researchers"
+ },
+ "judge": {
+  "name": "Poindexter auto-review light path",
+  "callable": "server.phoenix.generate_light_review (math) / generate_light_review_generic (other envs)",
+  "model": "gpt-6-astra (Azure), reasoning high, no code execution",
+  "veto": "final verdict 'major issues' or 'discard', or ambiguity verdict true",
+  "status": "one live call verified 2026-11-13 (41 s, verdict 'perfect' on a v5 frontier task); calibration pending"
+ },
+ "students": [
+  "Qwen/Qwen3-1.7B-Base@ea980cb",
+  "Qwen/Qwen3-4B-Base@906bfd4",
+  "HuggingFaceTB/SmolLM3-3B-Base@d78a42f",
+  "google/gemma-3-4b-pt@cc012e0"
+ ],
+ "api_sibling_students": "diagnosis only (e.g. Sol), not in the main table"
+}

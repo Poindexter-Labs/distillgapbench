@@ -1,0 +1,18 @@
+[
+ {
+  "cell_id": "template__qwen1p7b__output",
+  "researcher": null,
+  "student": "qwen1p7b",
+  "env": "output",
+  "reps": [
+   1
+  ],
+  "arms": [
+   "template"
+  ],
+  "arm_overrides": {
+   "max_candidates": 4
+  },
+  "seed_base": 940000
+ }
+]

@@ -1,0 +1,27 @@
+name: CPU harness smoke
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - name: Build CPU container
+        run: docker build -t distillgapbench:cpu .
+      # Ubuntu 24.04 blocks unprivileged user namespaces through AppArmor; the code sandbox needs them.
+      - name: Allow unprivileged user namespaces on the runner
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: Test suite and sandbox check, without network or GPU
+        run: >-
+          docker run --rm --network none
+          --security-opt seccomp=unconfined --security-opt apparmor=unconfined --security-opt systempaths=unconfined
+          distillgapbench:cpu
+      - name: Grid runner entrypoint
+        run: docker run --rm --network none distillgapbench:cpu python scripts/run_grid.py --help

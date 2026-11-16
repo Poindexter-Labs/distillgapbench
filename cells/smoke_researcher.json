@@ -1,0 +1,19 @@
+[
+ {
+  "cell_id": "sonnet55__qwen1p7b__output",
+  "researcher": "sonnet55",
+  "student": "qwen1p7b",
+  "env": "output",
+  "reps": [
+   1
+  ],
+  "arms": [
+   "adaptive"
+  ],
+  "arm_overrides": {
+   "max_candidates": 2,
+   "max_teacher_calls": 3
+  },
+  "seed_base": 950000
+ }
+]
