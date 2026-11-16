@@ -11,9 +11,15 @@ bash scripts/run_cells.sh cells/smoke_template.json "$OUT"
 "$CV" - "$OUT" <<'PY'
 import json, sys
 from pathlib import Path
-report = json.loads((Path(sys.argv[1]) / "template__qwen1p7b__output/report.json").read_text())
+path = Path(sys.argv[1]) / "template__qwen1p7b__output/report.json"
+report = json.loads(path.read_text())
+failed = []
 for arm in report["per_arm"]:
     print(arm["arm_id"], "pairs attempted:", arm.get("pairs_attempted"), "scored:", arm.get("pairs_final_scored"),
           "frontier gaps:", arm.get("frontier_gaps"), "stop:", arm.get("stop_reason"))
-print("smoke OK:", Path(sys.argv[1]) / "template__qwen1p7b__output/report.json")
+    if str(arm.get("stop_reason", "")).startswith("crash") or not arm.get("pairs_final_scored"):
+        failed.append(arm["arm_id"])
+if failed:
+    sys.exit(f"smoke FAILED: no scored pairs in {failed} ({path})")
+print("smoke OK:", path)
 PY

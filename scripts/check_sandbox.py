@@ -37,7 +37,11 @@ def main():
     import ns_pool  # the persistent namespace pool that scripts/run_grid.py --sandbox ns_pool uses
     from distillgap import sandbox
     info = ns_pool.install_pool(size=2)
-    result = sandbox.run_function(PROBE, "probe", [[21]], per_call_seconds=10.0, load_seconds=10.0)
+    # several calls in a row: the pool cleans up between evaluations, and a later call must still work
+    for _ in range(3):
+        result = sandbox.run_function(PROBE, "probe", [[21]], per_call_seconds=10.0, load_seconds=10.0)
+        if result.status != "ok":
+            break
     if result.status != "ok":
         print(json.dumps(result.to_json(), indent=1)[:2000])
         import linux_sandbox  # one namespace per call: reports the underlying unshare error

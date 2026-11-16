@@ -221,7 +221,12 @@ def localize_interpreter(python_path: str | None = None) -> str:
     from distillgap import sandbox as S
     real = os.path.realpath(python_path or S.base_python())
     prefix = Path(real).parents[1]
-    local_root = Path(os.environ.get("TMPDIR") or "/tmp") / f"dg-python-{os.getpid()}"
+    # Release: never under /tmp or /dev/shm, which the sandbox pool wipes after every evaluation (the study's TMPDIR
+    # was node-local storage elsewhere). DISTILLGAP_INTERPRETER_DIR overrides; /var/tmp is hidden from sandboxed code.
+    root = os.environ.get("DISTILLGAP_INTERPRETER_DIR") or os.environ.get("TMPDIR") or "/var/tmp"
+    if os.path.realpath(root).startswith(("/tmp", "/dev/shm")) or not os.access(root, os.W_OK):
+        root = "/var/tmp"
+    local_root = Path(root) / f"dg-python-{os.getpid()}"
     target = local_root / prefix.name
     if not target.exists():
         local_root.mkdir(parents=True, exist_ok=True)
